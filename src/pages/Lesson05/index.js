@@ -7,16 +7,37 @@ const convertData = (input) => {
   const genders = Array.from(new Set(input.map(({gender}) => gender)));
   const min = Math.round(Math.min(...input.map(({y}) => y)));
   const max = Math.round(Math.max(...input.map(({y}) => y)));
-  const bins = Array.from({length: max-min+1}).map((_,i) => {
+
+  /* 
+  const n = new Array(max-min+1);
+  n.forEach((n,input) => {
+    const i = Math.round(input.y)-min;
     const obj = {
       bin: (min+i).toString()
     };
     for(const gender of genders){
       obj[gender] = 0;
+    };
+    return obj;
+  });
+  for(const {y,gender} of input){
+    const i = Math.round(y)-min;
+    n[i][gender] += 1;
+  }
+  return n;
+  */
+  //forEachの引数があっていない可能性
+
+  const bins = Array.from({length: max-min+1}).map((_,i) => {
+    const obj = {
+      bin: (min+i).toString()
+    };
+    for(const gender of genders){
+      obj[gender] = 0; 
+      //オブジェクトを追加
     }
     return obj;
   });
-  //const n = new Array(max-min+1);としても可能なのか？
   for(const {y, gender} of input){
     const i = Math.round(y)-min;
     bins[i][gender] += 1;
