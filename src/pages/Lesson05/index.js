@@ -16,11 +16,12 @@ const convertData = (input) => {
     }
     return obj;
   });
+  //const n = new Array(max-min+1);としても可能なのか？
   for(const {y, gender} of input){
     const i = Math.round(y)-min;
     bins[i][gender] += 1;
   }
-  return bins;
+  return bins; 
 };
 
 const Lesson = () => {
