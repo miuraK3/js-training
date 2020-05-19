@@ -7,9 +7,7 @@ const convertData = (input) => {
   const genders = Array.from(new Set(input.map(({gender}) => gender)));
   const min = Math.round(Math.min(...input.map(({y}) => y)));
   const max = Math.round(Math.max(...input.map(({y}) => y)));
-  const bins = Array.from({
-    length: max-min+1
-  }).map((_,i) => {
+  const bins = Array.from({length: max-min+1}).map((_,i) => {
     const obj = {
       bin: (min+i).toString()
     };
