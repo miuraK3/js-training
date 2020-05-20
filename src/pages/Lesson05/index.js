@@ -38,7 +38,7 @@ const convertData = (input) => {
   return bins; 
 };
 
-//→binsをArray.form以外でやる方法は？
+//→binsをArray.form以外でやる方法について考えること
 
 const Lesson = () => {
   return (
