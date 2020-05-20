@@ -10,6 +10,7 @@ const convertData = (input) => {
   input.sort(function(a,b){
     return b.count-a.count;
   });
+  //sliceメゾット：指定された位置の一部を取って新しい配列として返す
   return input.slice(0,20);
 };
 
