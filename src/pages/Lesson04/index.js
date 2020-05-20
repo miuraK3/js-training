@@ -8,7 +8,7 @@ const convertData = (input) => {
   //setオブジェクト：重複する値は格納できない
   //mapメゾット：配列の要素を順番にコールバック関数へ渡し、新たな配列を作る
   //花の品種を要素とした配列を作り、それを重複なくする
-  const species = Array.from(new Set(input.map(({species}) => species)));  //Arow Function式で
+  const species = Array.from(new Set(input.map(({species}) => species)));  //Arrow Function式で
   //各データを目的の形にする
   return species.map( (species) => {
     return {
