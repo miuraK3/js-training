@@ -4,7 +4,11 @@ import Chart from "../../components/Chart03";
 import instruction from "./instruction.md";
 
 const convertData = (input) => {
-  return input.filter( a => a.gender === "男性");
+  /*filterメゾット：引数としてもらったテスト関数を各配列に対して実行し、
+  条件に当てはまる要素を新しい配列として返す*/
+  return input.filter(function(item){
+    if(item.gender === "男性") return true;
+  });
 };
 
 const Lesson = () => {
