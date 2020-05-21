@@ -8,18 +8,33 @@ const convertData = (input) => {
   //setオブジェクト：重複する値は格納できない
   //mapメゾット：配列の要素を順番にコールバック関数へ渡し、新たな配列を作る
   //花の品種を要素とした配列を作り、それを重複なくする
-  const species = Array.from(new Set(input.map(({species}) => species)));  //Arrow Function式で
+  const array = [];
+  for(const item of input){
+    if(!array.includes(item.species)){
+      array.push(item.species);
+    }
+  }
+  //const array = Array.from(new Set(input.map(({species}) => species)));  でもいい
+
   //各データを目的の形にする
-  return species.map( (species) => {
+  return array.map((array) => {
     return {
-      id: species,
+      id: array,
       data: input
-            .filter((item) => item.species === species)
-            .map(({sepalLength: x, petalWidth: y }) => ({x: x, y: y}))
             /*filterメゾット：引数としてもらったテスト関数を各配列に対して実行し、
             条件に当てはまる要素を新しい配列として返す*/
             //今見ている花の品種の名前と一致しているものを抜き出し、目的の形にする
-    };
+            .filter(function(item) {
+              if(item.species === array) return true;
+            })
+            .map(function({sepalLength: x, petalWidth: y}){
+              return {x: x, y: y}
+            })
+            /*それぞれを分割代入でする場合は以下となる
+            .filter((item) => item.species === array)
+            .map(({sepalLength: x, petalWidth: y }) => ({x: x, y: y})) 
+            */
+          }
   });
 };
 
