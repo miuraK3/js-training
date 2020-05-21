@@ -11,7 +11,7 @@ const convertData = (input) => {
   };
   //欲しい引数のみ貰って、各データを目的のオブジェクトに変更
   //mapメゾット：配列の要素を順番にコールバック関数へ渡し、新たな配列を作る
-  return input.map(({gender,x,y}) => {
+  return input.map(function({gender,x,y}){
     return {
       //貰った引数genderと一致しているcolorsオブジェクトのプロパティ名で設定
       color: colors[gender],
