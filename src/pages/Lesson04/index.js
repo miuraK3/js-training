@@ -15,7 +15,7 @@ const convertData = (input) => {
       id: species,
       data: input
             .filter((item) => item.species === species)
-            .map(({sepalLength: x, petalWidth: y }) => ({x, y}))
+            .map(({sepalLength: x, petalWidth: y }) => ({x: x, y: y}))
             /*filterメゾット：引数としてもらったテスト関数を各配列に対して実行し、
             条件に当てはまる要素を新しい配列として返す*/
             //今見ている花の品種の名前と一致しているものを抜き出し、目的の形にする
