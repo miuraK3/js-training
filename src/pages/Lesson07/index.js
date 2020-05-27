@@ -13,10 +13,48 @@ const convertData = (input) => {
     const date = String(d.getDate()).padStart(2, "0");
     item.createdAt = `${year}-${month}-${date}`;
   }
+
+  //考え中（tweet・retweetオブジェクトを作り、日付をプロパティ名としてカウントしたい）
   //各createdAtプロパティの値のみ集めた配列を作って昇順に（重複なし）
-  //カウント用にcountオブジェクトを作り、ネストでtweet・retweetオブジェクトを作って各日付の件数をカウントする
-  const datas = Array.from(new Set(input.map(({createdAt}) => createdAt)));
-  datas.sort(); //文字列の場合は引数なしで大丈夫
+  const dates = Array.from(new Set(input.map(({createdAt}) => createdAt)));
+  dates.sort(); //文字列の場合は引数なしで大丈夫
+
+  const t = {}; //各日付のtweet件数をカウントする用のオブジェクト
+  const r = {}; //各日付のretweet件数をカウントする用のオブジェクト
+  //各オブジェクト内のプロパティを追加・初期化（プロパティ名は日付で）
+  for(const d of dates){
+    t[d] = 0;
+    r[d] = 0;
+    //console.log(Object.keys(t[d]),Object.keys(r[d])); ←プロパティ名が添字になってた
+  }
+  //カウント処理
+  for(const {createdAt, isRetweet} of input){
+    if(isRetweet){
+      r[createdAt] += 1;
+    }else{
+      t[createdAt] += 1;
+    }
+  }
+  //配列をオブジェクト化に
+  const  array = ["tweet","retweet"];
+  array.map((item) => {
+      return {
+        id: item,
+        data: dates.map((d) => {
+          if(item === "tweet"){
+            return {x: d, y: t[d]};
+          }else{
+            return {x: d, y: r[d]};
+          }
+        })
+      };
+  });
+  //解答例の場合：カウント用にcountオブジェクトを作り、ネストでtweet・retweetオブジェクトを作ってる
+  //そしてそのオブジェクト内で各日付の件数をカウントする（各日付をプロマティ名としている）
+  /*
+  //各createdAtプロパティの値のみ集めた配列を作って昇順に（重複なし）
+  const dates = Array.from(new Set(input.map(({createdAt}) => createdAt)));
+  dates.sort(); //文字列の場合は引数なしで大丈夫
   const count = {
     tweet:{},
     retweet:{}
@@ -42,35 +80,9 @@ const convertData = (input) => {
         return {
           x: d, 
           y: count[item][d] 
-          /*
-          countオブジェクトのtweet・retweetオブジェクトの日付（今見ているdatasの値）プロパティの値を代入
-          */
+          //countオブジェクトのtweet・retweetオブジェクトの日付（今見ているdatasの値）プロパティの値を代入
         };
       }),
-    };
-  });
-  /*考え中
-  //各createdAtプロパティの値のみ集めた配列を作って昇順に（重複なし）
-  const dates = Array.from(new Set(input.map(({createdAt}) => createdAt)));
-  dates.sort();
-  dates.map((d) => {
-    return {
-      data: d,
-      tweet: 0,
-      retweet: 0,
-    };
-  });
-  //カウント処理
-  //配列をオブジェクト化に
-  const  array = ["tweet","retweet"];
-  array.map((item) => {
-    return {
-      id: item,
-      data: dates.map((d) => {
-        return{
-          x: d,
-        };
-      })
     };
   });
   */
