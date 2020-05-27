@@ -6,9 +6,7 @@ import instruction from "./instruction.md";
 const convertData = (input) => {
   /*filterメゾット：引数としてもらったテスト関数を各配列に対して実行し、
   条件に当てはまる要素を新しい配列として返す*/
-  return input.filter(function(item){
-    if(item.gender === "男性") return true;
-  });
+  return input.filter((item) => (item.gender === "男性"));
 };
 
 const Lesson = () => {

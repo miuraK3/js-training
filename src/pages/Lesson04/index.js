@@ -24,17 +24,13 @@ const convertData = (input) => {
             /*filterメゾット：引数としてもらったテスト関数を各配列に対して実行し、
             条件に当てはまる要素を新しい配列として返す*/
             //今見ている花の品種の名前と一致しているものを抜き出し、目的の形にする
-            .filter(function(item) {
-              if(item.species === array) return true;
-            })
-            .map(function({sepalLength: x, petalWidth: y}){
-              return {x: x, y: y}
-            })
+            .filter((item)  => (item.species === array))
+            .map(({sepalLength: x, petalWidth: y}) => ({x: x, y: y}))
             /*それぞれを分割代入でする場合は以下となる
             .filter((item) => item.species === array)
             .map(({sepalLength: x, petalWidth: y }) => ({x: x, y: y})) 
             */
-          }
+   }
   });
 };
 
