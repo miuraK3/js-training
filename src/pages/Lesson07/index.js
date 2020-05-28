@@ -4,7 +4,8 @@ import Chart from "../../components/Chart07";
 import instruction from "./instruction.md";
 
 const convertData = (input) => {
-  //各プロパティcreatedAtの値を年月日のみに変更
+  //考え中（tweet・retweetオブジェクトを作り、それぞれに日付をプロパティ名としたオブジェクトをさらに作ってカウントしたい）
+  //各プロパティcreatedAtの値を年月日のみに変更（扱いやすくするため）
   for (const item of input) {
     const d = new Date(`${item.createdAt} UTC`); 
     const year = d.getFullYear();
@@ -13,8 +14,6 @@ const convertData = (input) => {
     const date = String(d.getDate()).padStart(2, "0");
     item.createdAt = `${year}-${month}-${date}`;
   }
-
-  //考え中（tweet・retweetオブジェクトを作り、日付をプロパティ名としてカウントしたい）
   //各createdAtプロパティの値のみ集めた配列を作って昇順に（重複なし）
   const dates = Array.from(new Set(input.map(({createdAt}) => createdAt)));
   dates.sort(); //文字列の場合は引数なしで大丈夫
@@ -25,8 +24,10 @@ const convertData = (input) => {
   for(const d of dates){
     t[d] = 0;
     r[d] = 0;
-    //console.log(Object.keys(t[d]),Object.keys(r[d])); ←プロパティ名が添字になってた
   }
+  console.log(Object.keys(t),Object.keys(r));  //プロパティ名の確認
+  console.log(Object.values(t),Object.values(r));  //各プロパティの値（初期値）の確認
+
   //カウント処理
   for(const {createdAt, isRetweet} of input){
     if(isRetweet){
@@ -35,9 +36,11 @@ const convertData = (input) => {
       t[createdAt] += 1;
     }
   }
-  //配列をオブジェクト化に
+  console.log(Object.values(t),Object.values(r)); //各プロパティ値の確認
+
+  //配列を目的の形（オブジェクト）に
   const  array = ["tweet","retweet"];
-  array.map((item) => {
+  return array.map((item) => {
       return {
         id: item,
         data: dates.map((d) => {
@@ -49,43 +52,7 @@ const convertData = (input) => {
         })
       };
   });
-  //解答例の場合：カウント用にcountオブジェクトを作り、ネストでtweet・retweetオブジェクトを作ってる
-  //そしてそのオブジェクト内で各日付の件数をカウントする（各日付をプロマティ名としている）
-  /*
-  //各createdAtプロパティの値のみ集めた配列を作って昇順に（重複なし）
-  const dates = Array.from(new Set(input.map(({createdAt}) => createdAt)));
-  dates.sort(); //文字列の場合は引数なしで大丈夫
-  const count = {
-    tweet:{},
-    retweet:{}
-  };
-  //tweet・retweetオブジェクトに日付をキー名としたプロパティを追加・初期化
-  for(const d of datas){
-    count.tweet[d] = 0;
-    count.retweet[d] = 0;
-  }
-  //各日付の各件数をカウント
-  for(const {createdAt, isRetweet} of input){
-    if(isRetweet){
-      count.retweet[createdAt] += 1;
-    }else{
-      count.tweet[createdAt] += 1;
-    }
-  }
-  //配列を目的の形になるようなオブジェクトに変形する
-  return ["tweet","retweet"].map((item) =>{
-    return {
-      id: item,  //見ている配列要素そのまま
-      data: datas.map((d) => {
-        return {
-          x: d, 
-          y: count[item][d] 
-          //countオブジェクトのtweet・retweetオブジェクトの日付（今見ているdatasの値）プロパティの値を代入
-        };
-      }),
-    };
-  });
-  */
+  //注：最後にreturnを忘れないこと
 };
 
 const Lesson = () => {
