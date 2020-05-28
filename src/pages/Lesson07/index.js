@@ -4,7 +4,7 @@ import Chart from "../../components/Chart07";
 import instruction from "./instruction.md";
 
 const convertData = (input) => {
-  //考え中（tweet・retweetオブジェクトを作り、それぞれに日付をプロパティ名としたオブジェクトをさらに作ってカウントしたい）
+  //考え方（tweet・retweetオブジェクトを作り、それぞれに日付をプロパティ名としたオブジェクトをさらに作ってカウントしたい）
   //各プロパティcreatedAtの値を年月日のみに変更（扱いやすくするため）
   for (const item of input) {
     const d = new Date(`${item.createdAt} UTC`); 
