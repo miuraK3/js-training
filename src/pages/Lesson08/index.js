@@ -41,7 +41,7 @@ const convertData = (input) => {
     }
    }
  }
- //4 （それぞれ目的の形になるように変える）
+ //4 links配列内にあるtag名のみをnodes配列に入れればいい
  const links = [];
  for(const t1 of t){
    for(const t2 of t){
@@ -64,11 +64,11 @@ const convertData = (input) => {
      n.push(target);
    }
  }
- const nodes = Array.from(n).map((tag) => {
-  return {id: tag,};
+ const nodes = n.map((n) => {
+   return {id: n};
  });
  //5
- return { nodes, links}; 
+ return {nodes, links}; 
 };
 
 const Lesson = () => {
